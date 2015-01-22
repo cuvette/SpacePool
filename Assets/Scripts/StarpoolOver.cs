@@ -28,7 +28,7 @@ public class StarpoolOver : MonoBehaviour {
 		//limité avec un bool
 		for(int i=0;i<nbHighScore;i++){
 			if(playerScoreValue>highScore[i] && !registerHighScore){
-				for(int j=nbHighScore-2;j>=i;j--){
+				for(int j=nbHighScore-1;j>=i;j--){
 					if(j>0)
 						highScore[j] = highScore[j-1];
 				}
