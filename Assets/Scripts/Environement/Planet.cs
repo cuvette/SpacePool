@@ -8,6 +8,7 @@ public class Planet : MonoBehaviour
 	public float maxSpeed = 100f;
 
 	public AudioClip collisionClip;
+	public AudioClip limiteClip;
 
 	public float bumperProb = 0f;
 	public float wormHoleProb = 0f;
@@ -67,6 +68,7 @@ public class Planet : MonoBehaviour
 				ScoreDisplayer.addScore(ScoreDisplayer.planetCollision/2);
 			}
 		}
+		
 	}
 
 	void ChooseNextEntity()

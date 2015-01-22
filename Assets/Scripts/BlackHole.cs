@@ -5,6 +5,7 @@ using System.Collections;
 public class BlackHole : MonoBehaviour {
 
 	public int overloadValue = 5;
+	public float volumeBlackHoleIn = 0.5f;
 	public AudioClip blackHoleClip;
 
 	private Slider overloadVisual;
@@ -19,6 +20,7 @@ public class BlackHole : MonoBehaviour {
 	{
 		if(!audio.isPlaying)
 		{
+			audio.volume = 1;
 			audio.loop = true;
 			audio.clip = blackHoleClip;
 		}
@@ -28,6 +30,8 @@ public class BlackHole : MonoBehaviour {
 	{
 		if(other.gameObject.tag == "Planet")
 		{
+			audio.loop = false;
+			audio.volume = volumeBlackHoleIn;
 			audio.Play();
 			overloadVisual.value += overloadValue;
 			if(overloadVisual.value>=100){
