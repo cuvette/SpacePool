@@ -66,22 +66,25 @@ public class PlayerAction : MonoBehaviour {
 			RaycastHit[] hits = Physics.RaycastAll (transform.position, transform.forward, distance);
 			float minDist = 1000f;
 			int target = 0;
-			for (int i=hits.Length-1;i>=0;i--) {
-				RaycastHit hit = hits[i];
-				if (hit.collider.gameObject != null && hit.collider.gameObject.tag == "Planet") {
-					float d = Vector3.Distance(transform.position,hit.collider.gameObject.transform.position);
-					if(d < minDist)
-					{
-						minDist = d;
-						target = i;
+			if(hits.Length > 0)
+			{
+				for (int i=hits.Length-1;i>=0;i--) {
+					RaycastHit hit = hits[i];
+					if (hit.collider.gameObject != null && hit.collider.gameObject.tag == "Planet") {
+						float d = Vector3.Distance(transform.position,hit.collider.gameObject.transform.position);
+						if(d < minDist)
+						{
+							minDist = d;
+							target = i;
+						}
 					}
 				}
-			}
-			if(hits[target].collider.gameObject.tag =="Planet"){
-				hits[target].collider.rigidbody.AddForceAtPosition (transform.forward * power * powerMult * (1/Time.timeScale), hits[target].point);
-				audio.clip = lancerClip;
-				audio.loop = false;
-				audio.Play();
+				if(hits[target].collider.gameObject.tag =="Planet"){
+					hits[target].collider.rigidbody.AddForceAtPosition (transform.forward * power * powerMult * (1/Time.timeScale), hits[target].point);
+					audio.clip = lancerClip;
+					audio.loop = false;
+					audio.Play();
+				}
 			}
 			canvas.scaleFactor = 1;
 			power = 0;

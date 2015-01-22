@@ -4,7 +4,7 @@ using System.Collections;
 public class OverlapInstantiator
 {
 
-	public static Object OverInstantiate(GameObject objectToInstantiate, Vector3 position, float maximumDistance)
+	public static Object OverInstantiate(GameObject objectToInstantiate, Vector3 position)
 	{
 		Collider[] cols;
 //		if(cols.Length == 0)
@@ -15,7 +15,7 @@ public class OverlapInstantiator
 		int count = 0;
 		while(!empty)
 		{
-			cols = Physics.OverlapSphere(position, objectToInstantiate.transform.localScale.x, LayerMask.GetMask("Astre"));
+			cols = Physics.OverlapSphere(position, objectToInstantiate.transform.localScale.x);//, LayerMask.GetMask("Astre"));
 			if(cols.Length == 0 || count >= 100)
 			{
 				empty = true;

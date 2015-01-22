@@ -9,7 +9,7 @@ public class TestInstantiation : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.A))
 		{
-			OverlapInstantiator.OverInstantiate(o, Vector3.zero,16);
+			OverlapInstantiator.OverInstantiate(o, Vector3.zero);
 		}
 	}
 }

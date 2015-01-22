@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Planet : MonoBehaviour 
 {
-	public float tailleTerrain;
 	public int lvl;
 	public float maxSpeed = 100f;
 
@@ -15,6 +14,18 @@ public class Planet : MonoBehaviour
 	public float blackHoleProb = 0f;
 	public float starProb = 0f;
 	public float nebulaProb = 0f;
+	
+	public int maxBumper = 5;
+	public int maxWormHole = 5;
+	public int maxBlackHole = 5;
+	public int maxStar = 5;
+	public int maxNebula = 5;
+
+	private static int bumperCount = 0;
+	private static int wormHoleCount = 0;
+	private static int blackHoleCount = 0;
+	private static int starCount = 0 ;
+	private static int nebulaCount = 0;
 
 	public GameObject nextPlanet;
 	public GameObject bumper;
@@ -58,9 +69,11 @@ public class Planet : MonoBehaviour
 				if(rigidbody.velocity.magnitude > other.rigidbody.velocity.magnitude)
 				{
 					ScoreDisplayer.addScore(ScoreDisplayer.planetFusion);
-					GameObject.Destroy(gameObject);
-					GameObject.Destroy(other.gameObject);
-					ChooseNextEntity();
+					if(ChooseNextEntity())
+					{
+						GameObject.Destroy(gameObject);
+						GameObject.Destroy(other.gameObject);
+					}
 				}
 			}
 			else
@@ -71,63 +84,79 @@ public class Planet : MonoBehaviour
 		
 	}
 
-	void ChooseNextEntity()
+	bool ChooseNextEntity()
 	{
 		float rand = Random.value;
 		if(rand <= cumProbaTab[0])
 		{
+			if(bumperCount >= maxBumper)
+				return false;
 			CreateBumper();
 		}
 		else if(rand <= cumProbaTab[1])
 		{
+			if(wormHoleCount >= maxWormHole)
+				return false;
 			CreateWormHole();
 		}
 		else if(rand <= cumProbaTab[2])
 		{
+			if(blackHoleCount >= maxBlackHole)
+				return false;
 			CreateBlackHole();
 		}
 		else if(rand <= cumProbaTab[3])
 		{
+			if(starCount >= maxStar)
+				return false;
 			CreateStar();
 		}
 		else if(rand <= cumProbaTab[4])
 		{
+			if(nebulaCount >= maxNebula)
+				return false;
 			CreateNebula();
 		}
 		else{
 			CreatePlanet();
 		}
+		return true;
 	}
 
 	void CreateBumper()
 	{
-		OverlapInstantiator.OverInstantiate(bumper, transform.position,tailleTerrain);
+		OverlapInstantiator.OverInstantiate(bumper, transform.position);
+		bumperCount++;
 	}
 
 	void CreateWormHole()
 	{
-		GameObject o1 = OverlapInstantiator.OverInstantiate(wormHole, transform.position,tailleTerrain) as GameObject;
-//		GameObject o2 = Instantiate(wormHole, -transform.position, transform.rotation) as GameObject;
+		GameObject o1 = OverlapInstantiator.OverInstantiate(wormHole, transform.position) as GameObject;
+//		GameObject o2 = OverlapInstantiator.OverInstantiate(wormHole, -transform.position) as GameObject;
 		WormHole w1 = o1.GetComponent<WormHole>();
 //		WormHole w2 = o1.GetComponent<WormHole>();
 //		w1.outWormHole = w2;
 //		w2.outWormHole = w1;
+		wormHoleCount = wormHoleCount+1;
 	}
 
 	void CreateBlackHole()
 	{
-		OverlapInstantiator.OverInstantiate (blackHole, transform.position,tailleTerrain);
+		OverlapInstantiator.OverInstantiate (blackHole, transform.position);
+		blackHoleCount++;
 	}
 
 	void CreateStar()
 	{
 		ScoreDisplayer.addScore(ScoreDisplayer.starCreation);
-		OverlapInstantiator.OverInstantiate(star, transform.position,tailleTerrain);
+		OverlapInstantiator.OverInstantiate(star, transform.position);
+		starCount++;
 	}
 
 	void CreateNebula()
 	{
-		OverlapInstantiator.OverInstantiate(nebula, transform.position,tailleTerrain);
+		OverlapInstantiator.OverInstantiate(nebula, transform.position);
+		nebulaCount++;
 	}
 
 	void CreatePlanet()
