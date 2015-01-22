@@ -5,6 +5,10 @@ using System.Collections;
 public class ScoreDisplayer : MonoBehaviour {
 	public Text textScore;
 
+	public static int scoreSoundLvl = 50000;
+	public AudioClip scoreUp;
+	public AudioClip scoreUpUp;
+
 	private int score = 0;
 	private Text affichageScore;
 	static private ScoreDisplayer instance;
@@ -16,6 +20,9 @@ public class ScoreDisplayer : MonoBehaviour {
 	public const int bumperCollision = 7000;
 	public const int asteroidCollision = 2000;
 
+	private static AudioSource audio;
+	private static AudioClip scoreUpStat;
+	private static AudioClip scoreUpUpStat;
 
 	// Use this for initialization
 	void Start () {
@@ -27,6 +34,9 @@ public class ScoreDisplayer : MonoBehaviour {
 			}
 		}
 		instance.affichageScore.text = "0";
+		audio = affichageScore.GetComponent<AudioSource>();
+		scoreUpStat =scoreUp;
+		scoreUpUpStat =scoreUpUp;
 	}
 
 	// Update is called once per frame
@@ -38,6 +48,11 @@ public class ScoreDisplayer : MonoBehaviour {
 	}
 	public static void addScore(int points){
 		instance.score += points;
+		if(points > scoreSoundLvl)
+			audio.clip = scoreUpUpStat;
+		else
+			audio.clip = scoreUpStat;
+		audio.Play();
 	}
 
 	public int getScore(){
