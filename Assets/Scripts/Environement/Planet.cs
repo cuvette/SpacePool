@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Planet : MonoBehaviour 
 {
+	public float tailleTerrain;
 	public int lvl;
 	public float maxSpeed = 100f;
 
@@ -98,12 +99,12 @@ public class Planet : MonoBehaviour
 
 	void CreateBumper()
 	{
-		Instantiate(bumper, transform.position, transform.rotation);
+		OverlapInstantiator.OverInstantiate(bumper, transform.position,tailleTerrain);
 	}
 
 	void CreateWormHole()
 	{
-		GameObject o1 = Instantiate(wormHole, transform.position, transform.rotation) as GameObject;
+		GameObject o1 = OverlapInstantiator.OverInstantiate(wormHole, transform.position,tailleTerrain) as GameObject;
 //		GameObject o2 = Instantiate(wormHole, -transform.position, transform.rotation) as GameObject;
 		WormHole w1 = o1.GetComponent<WormHole>();
 //		WormHole w2 = o1.GetComponent<WormHole>();
@@ -113,23 +114,23 @@ public class Planet : MonoBehaviour
 
 	void CreateBlackHole()
 	{
-		Instantiate (blackHole, transform.position, transform.rotation);
+		OverlapInstantiator.OverInstantiate (blackHole, transform.position,tailleTerrain);
 	}
 
 	void CreateStar()
 	{
 		ScoreDisplayer.addScore(ScoreDisplayer.starCreation);
-		Instantiate(star, transform.position, transform.rotation);
+		OverlapInstantiator.OverInstantiate(star, transform.position,tailleTerrain);
 	}
 
 	void CreateNebula()
 	{
-		Instantiate(nebula, transform.position, transform.rotation);
+		OverlapInstantiator.OverInstantiate(nebula, transform.position,tailleTerrain);
 	}
 
 	void CreatePlanet()
 	{
-		GameObject o = Instantiate(nextPlanet, transform.position, transform.rotation) as GameObject;
+		GameObject o = Instantiate(nextPlanet, transform.position,Quaternion.identity) as GameObject;
 		o.rigidbody.velocity = rigidbody.velocity;
 	}
 }
