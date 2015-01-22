@@ -8,12 +8,17 @@ public class BlackHole : MonoBehaviour {
 	public float volumeBlackHoleIn = 0.5f;
 	public AudioClip blackHoleClip;
 
+	private GameObject gameController;
 	private Slider overloadVisual;
 	private AudioSource audio;
+	private string playerScoreKey = "PlayerScore";
+	private int scoreValue;
 
 	void Awake () {
 		audio = GetComponent<AudioSource>();
-		overloadVisual = GameObject.FindGameObjectWithTag ("GameController").GetComponentInChildren<Slider> ();
+
+		gameController = GameObject.FindGameObjectWithTag ("GameController");
+		overloadVisual = gameController.GetComponentInChildren<Slider> ();
 	}
 
 	void Update()
@@ -35,6 +40,7 @@ public class BlackHole : MonoBehaviour {
 			audio.Play();
 			overloadVisual.value += overloadValue;
 			if(overloadVisual.value>=100){
+				PlayerPrefs.SetInt(playerScoreKey, gameController.GetComponentInChildren<ScoreDisplayer> ().getScore());
 				Application.LoadLevel("gameOver");
 			}
 			Destroy(other.gameObject);

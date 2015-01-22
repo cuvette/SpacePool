@@ -39,4 +39,8 @@ public class ScoreDisplayer : MonoBehaviour {
 	public static void addScore(int points){
 		instance.score += points;
 	}
+
+	public int getScore(){
+		return int.Parse(instance.affichageScore.text);
+	}
 }
