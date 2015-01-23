@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TimeControl : MonoBehaviour {
 
-	public string axisTime = "Fire2";
+	public string axisTime = "Fire1";
 	public float slowScale = .05f;
 
 	// Use this for initialization

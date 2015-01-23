@@ -7,7 +7,7 @@ public class PlayerAction : MonoBehaviour {
 	public float distance = 1000f;
 
 	public float powerByFrame = 1f;
-	public string fire = "Fire1";
+	public string fire = "Fire3";
 	public float powerMult = 1;
 	public AudioClip curseurUpClip;
 	public AudioClip curseurConstantClip;
