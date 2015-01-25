@@ -13,11 +13,11 @@ public class ScoreDisplayer : MonoBehaviour {
 	private Text affichageScore;
 	static private ScoreDisplayer instance;
 
-	public const int planetCollision = 5000;
-	public const int planetFusion = 10000;
-	public const int starCreation = 50000;
-	public const int wormholeSucking = 75000;
-	public const int bumperCollision = 7000;
+	public const int planetCollision = 500;
+	public const int planetFusion = 2000;
+	public const int starCreation = 10000;
+	public const int wormholeSucking = 35000;
+	public const int bumperCollision = 5000;
 	public const int asteroidCollision = 2000;
 
 	private static AudioSource audio;
